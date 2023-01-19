@@ -8,10 +8,13 @@ import {
   Table,
 } from "@mui/material";
 import { IProduct } from "../../shared/types";
-import { Props } from "./ProductsTable.types";
+import * as Types from "./ProductsTable.types";
 import * as Styles from "./ProductsTable.styles";
 
-const ProductsTable = ({ data }: Props) => {
+const ProductsTable = ({ data, setOpen }: Types.Props) => {
+  const handleClick = () => {
+    setOpen(true);
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -24,7 +27,11 @@ const ProductsTable = ({ data }: Props) => {
         </TableHead>
         <TableBody>
           {data.data.map((row: IProduct) => (
-            <Styles.RowTable bgColor={row.color} key={row.id}>
+            <Styles.RowTable
+              onClick={handleClick}
+              bgcolor={row.color}
+              key={row.id}
+            >
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>

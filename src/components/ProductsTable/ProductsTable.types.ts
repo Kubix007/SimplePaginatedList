@@ -1,7 +1,8 @@
 export interface Props {
   data: any;
+  setOpen: any;
 }
 
 export interface RowProps {
-  bgColor: string;
+  bgcolor: string;
 }
