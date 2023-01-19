@@ -15,6 +15,11 @@ function App() {
   const products = useSelector((state: RootState) => state.products);
   const filterSettings = useSelector((state: RootState) => state.filter);
 
+  let params = new URLSearchParams(document.location.search);
+  let page = params.get("page");
+  let perPage = params.get("per_page");
+  let id = params.get("id");
+
   useEffect(() => {
     dispatch(getProducts(filterSettings));
   }, [dispatch, filterSettings]);
@@ -31,7 +36,11 @@ function App() {
       alignItems="center"
     >
       <Grid item>
-        <ProductsTable setOpen={setOpen} data={products.products} />
+        <ProductsTable
+          info={{ page, perPage, id }}
+          setOpen={setOpen}
+          data={products.products}
+        />
       </Grid>
       <ModalInfo open={open} setOpen={setOpen} />
     </Styles.AppContainer>

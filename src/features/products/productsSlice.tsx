@@ -38,8 +38,8 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-export const productSlice = createSlice({
-  name: "product",
+export const productsSlice = createSlice({
+  name: "products",
   initialState,
   reducers: {
     reset: (state) => initialState,
@@ -62,5 +62,5 @@ export const productSlice = createSlice({
   },
 });
 
-export const { reset } = productSlice.actions;
-export default productSlice.reducer;
+export const { reset } = productsSlice.actions;
+export default productsSlice.reducer;

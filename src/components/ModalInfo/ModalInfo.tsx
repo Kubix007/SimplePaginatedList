@@ -1,5 +1,8 @@
-import { Box, Typography, Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import * as Types from "./ModalInfo.types";
+import * as Styles from "./ModalInfo.styles";
 
 const style = {
   position: "absolute" as "absolute",
@@ -14,6 +17,10 @@ const style = {
 };
 
 const ModalInfo = ({ open, setOpen }: Types.IModalProps) => {
+  const selectedProduct = useSelector(
+    (state: RootState) => state.selectedProduct
+  );
+
   const handleClose = () => setOpen(false);
 
   return (
@@ -23,14 +30,29 @@ const ModalInfo = ({ open, setOpen }: Types.IModalProps) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-      </Box>
+      <Styles.ModalContent>
+        <Styles.PropertyName>
+          ID:<Styles.PropertyValue>{selectedProduct.id}</Styles.PropertyValue>
+        </Styles.PropertyName>
+        <Styles.PropertyName>
+          Name:
+          <Styles.PropertyValue>{selectedProduct.name}</Styles.PropertyValue>
+        </Styles.PropertyName>
+        <Styles.PropertyName>
+          Color:
+          <Styles.PropertyValue>{selectedProduct.color}</Styles.PropertyValue>
+        </Styles.PropertyName>
+        <Styles.PropertyName>
+          Pantone Value:
+          <Styles.PropertyValue>
+            {selectedProduct.pantone_value}
+          </Styles.PropertyValue>
+        </Styles.PropertyName>
+        <Styles.PropertyName>
+          Year:
+          <Styles.PropertyValue>{selectedProduct.year}</Styles.PropertyValue>
+        </Styles.PropertyName>
+      </Styles.ModalContent>
     </Modal>
   );
 };
