@@ -12,7 +12,7 @@ export interface IProduct {
   pantone_value: string;
 }
 
-export interface IProductsState {
+export interface IProductState {
   page: number;
   per_page: number;
   total: number;
