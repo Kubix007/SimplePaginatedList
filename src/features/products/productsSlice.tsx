@@ -3,15 +3,21 @@ import { IFilterState, IProductState } from "../../shared/types";
 import productsService from "./productsService";
 
 const initialState: IProductState = {
-  page: 0,
-  per_page: 0,
-  total: 0,
-  total_pages: 0,
-  data: [],
+  products: {
+    page: 0,
+    per_page: 0,
+    total: 0,
+    total_pages: 0,
+    data: [],
+  },
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: "",
 };
 
 //Get products
-export const getUsers = createAsyncThunk(
+export const getProducts = createAsyncThunk(
   "/products",
   async (filterSettings: IFilterState, thunkAPI) => {
     try {
@@ -37,6 +43,22 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => initialState,
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.products = action.payload;
+      })
+      .addCase(getProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload as string;
+      });
   },
 });
 

@@ -13,9 +13,15 @@ export interface IProduct {
 }
 
 export interface IProductState {
-  page: number;
-  per_page: number;
-  total: number;
-  total_pages: number;
-  data: IProduct[];
+  products: {
+    page: number;
+    per_page: number;
+    total: number;
+    total_pages: number;
+    data: IProduct[];
+  };
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string;
 }
