@@ -23,7 +23,6 @@ export const getProducts = createAsyncThunk(
     try {
       return await productsService.getProducts(
         filterSettings.page,
-        filterSettings.per_page,
         filterSettings.id
       );
     } catch (error: any) {
