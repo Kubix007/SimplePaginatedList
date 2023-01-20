@@ -29,7 +29,7 @@ function Home() {
 
   useEffect(() => {
     let params = searchParams;
-    let id = params.get("id")!;
+    let id = params.get("id");
     let page = params.get("page")!;
     dispatch(
       getProducts({
@@ -38,8 +38,8 @@ function Home() {
         per_page: "5",
       })
     );
-    setInputValue(id);
-    dispatch(changeFilterId(id));
+    setInputValue(id ? id : "");
+    dispatch(changeFilterId(id ? id : ""));
   }, [dispatch, filterSettings, searchParams, setSearchParams]);
 
   if (isLoading) {

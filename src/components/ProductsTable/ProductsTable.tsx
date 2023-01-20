@@ -31,9 +31,13 @@ const ProductsTable = ({ data, setOpen }: Types.Props) => {
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
+    let validPage = newPage + 1;
     setPage(newPage);
-    dispatch(changeFilterPage(`${newPage + 1}`));
-    setSearchParams({ id: filterSettings.id, page: `${newPage + 1}` });
+    dispatch(changeFilterPage(`${Number.isNaN(validPage) ? 1 : validPage}`));
+    setSearchParams({
+      id: filterSettings.id,
+      page: `${Number.isNaN(validPage) ? 1 : validPage}`,
+    });
   };
   return (
     <>
@@ -80,9 +84,9 @@ const ProductsTable = ({ data, setOpen }: Types.Props) => {
       <Styles.Pagination
         rowsPerPageOptions={[-1]}
         component="div"
-        count={data.total}
+        count={data.total === undefined ? 0 : data.total}
         rowsPerPage={5}
-        page={data.page - 1}
+        page={Number.isNaN(data.page - 1) ? 0 : data.page - 1}
         onPageChange={handleChangePage}
       />
     </>
