@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ProductsTable from "../../components/ProductsTable/ProductsTable";
 import { Grid } from "@mui/material";
-import { getProducts } from "../../features/products/productsSlice";
+import {
+  getProducts,
+  resetStatus,
+} from "../../features/products/productsSlice";
 import { AppDispatch, RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import ModalInfo from "../../components/ModalInfo/ModalInfo";
@@ -10,16 +13,19 @@ import FilterInput from "../../components/FilterInput";
 import SubmitButton from "../../components/SubmitButton";
 import * as Styles from "./Home.styles";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { changeFilterId } from "../../features/filter/filterSlice";
 
 function Home() {
   const dispatch: AppDispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const { isLoading } = useSelector((state: RootState) => state.products);
+  const { isLoading, isError, isSuccess, message } = useSelector(
+    (state: RootState) => state.products
+  );
   const products = useSelector((state: RootState) => state.products);
   const filterSettings = useSelector((state: RootState) => state.filter);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const [inputValue, setInputValue] = useState(searchParams.get("id"));
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     let params = searchParams;
@@ -32,10 +38,28 @@ function Home() {
         per_page: "5",
       })
     );
+    setInputValue(id);
+    dispatch(changeFilterId(id));
   }, [dispatch, filterSettings, searchParams, setSearchParams]);
 
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (isError && !isSuccess && message) {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "colored",
+    });
+    setInputValue("");
+    dispatch(resetStatus());
+    setSearchParams({ id: "", page: "1" });
   }
 
   return (

@@ -4,8 +4,8 @@ import productsService from "./productsService";
 
 const initialState: IProductState = {
   products: {
-    page: 0,
-    per_page: 0,
+    page: 1,
+    per_page: 5,
     total: 0,
     total_pages: 0,
     data: [],
@@ -42,24 +42,34 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => initialState,
+    resetStatus: (state) => {
+      state.isError = false;
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.message = "";
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(getProducts.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
+        state.isSuccess = false;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.isError = false;
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.isLoading = false;
+        state.isSuccess = false;
         state.isError = true;
         state.message = action.payload as string;
       });
   },
 });
 
-export const { reset } = productsSlice.actions;
+export const { reset, resetStatus } = productsSlice.actions;
 export default productsSlice.reducer;

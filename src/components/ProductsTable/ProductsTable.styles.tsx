@@ -11,9 +11,7 @@ export const RowTable = styled(TableRow)<Types.RowProps>`
 export const ContainerTable = styled(TableContainer)<Types.TableContainerProps>`
   &.MuiTableContainer-root {
     border: 1px solid black;
-  }
-  &.MuiTablePagination-displayedRows {
-    display: none;
+    height: 320.86px;
   }
 `;
 

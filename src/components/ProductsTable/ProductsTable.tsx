@@ -5,7 +5,6 @@ import {
   TableHead,
   TableRow,
   Table,
-  TablePagination,
 } from "@mui/material";
 import { IProduct } from "../../shared/types";
 import { useDispatch, useSelector } from "react-redux";
@@ -81,7 +80,7 @@ const ProductsTable = ({ data, setOpen }: Types.Props) => {
       <Styles.Pagination
         rowsPerPageOptions={[-1]}
         component="div"
-        count={-1}
+        count={data.total}
         rowsPerPage={5}
         page={data.page - 1}
         onPageChange={handleChangePage}
