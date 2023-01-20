@@ -42,7 +42,7 @@ const ProductsTable = ({ data, setOpen }: Types.Props) => {
   return (
     <>
       <Styles.ContainerTable component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Styles.MaterialTable>
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
@@ -79,7 +79,7 @@ const ProductsTable = ({ data, setOpen }: Types.Props) => {
               </Styles.RowTable>
             )}
           </TableBody>
-        </Table>
+        </Styles.MaterialTable>
       </Styles.ContainerTable>
       <Styles.Pagination
         rowsPerPageOptions={[-1]}
