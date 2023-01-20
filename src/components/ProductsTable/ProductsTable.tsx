@@ -78,10 +78,10 @@ const ProductsTable = ({ data, setOpen }: Types.Props) => {
           </TableBody>
         </Table>
       </Styles.ContainerTable>
-      <TablePagination
+      <Styles.Pagination
         rowsPerPageOptions={[-1]}
         component="div"
-        count={data.total}
+        count={-1}
         rowsPerPage={5}
         page={data.page - 1}
         onPageChange={handleChangePage}
