@@ -1,19 +1,20 @@
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { AppDispatch } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 import { changeFilterId } from "../../features/filter/filterSlice";
 import * as Types from "./SubmitButton.types";
 
 const SubmitButton = ({ inputValue }: Types.ButtonProps) => {
   const [, setSearchParams] = useSearchParams();
   const dispatch: AppDispatch = useDispatch();
+  const filterSettings = useSelector((state: RootState) => state.filter);
 
   const handleClick = () => {
     if (inputValue) {
-      setSearchParams({ id: inputValue });
+      setSearchParams({ page: filterSettings.page, id: inputValue });
     } else if (inputValue === "") {
-      setSearchParams({});
+      setSearchParams({ page: filterSettings.page });
     }
     dispatch(changeFilterId(inputValue));
   };

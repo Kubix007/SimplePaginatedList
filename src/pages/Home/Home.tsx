@@ -17,20 +17,22 @@ function Home() {
   const { isLoading } = useSelector((state: RootState) => state.products);
   const products = useSelector((state: RootState) => state.products);
   const filterSettings = useSelector((state: RootState) => state.filter);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [inputValue, setInputValue] = useState(searchParams.get("id"));
 
   useEffect(() => {
-    let id = searchParams.get("id");
-    let page = searchParams.get("page");
+    let params = searchParams;
+    let id = params.get("id")!;
+    let page = params.get("page")!;
     dispatch(
       getProducts({
         id: id ? id : "",
-        page: page ? page : "",
+        page: page,
         per_page: "5",
       })
     );
-  }, [dispatch, filterSettings, searchParams]);
+  }, [dispatch, filterSettings, searchParams, setSearchParams]);
 
   if (isLoading) {
     return <Spinner />;

@@ -6,3 +6,7 @@ export interface Props {
 export interface RowProps {
   bgcolor: string;
 }
+
+export interface TableContainerProps {
+  component: any;
+}
