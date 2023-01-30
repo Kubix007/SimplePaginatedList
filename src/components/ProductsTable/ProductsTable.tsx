@@ -4,7 +4,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Table,
 } from "@mui/material";
 import { IProduct } from "../../shared/types";
 import { useDispatch, useSelector } from "react-redux";

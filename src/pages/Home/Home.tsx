@@ -8,7 +8,6 @@ import {
 import { AppDispatch, RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import ModalInfo from "../../components/ModalInfo/ModalInfo";
-import Spinner from "../../components/Spinner";
 import FilterInput from "../../components/FilterInput";
 import SubmitButton from "../../components/SubmitButton";
 import * as Styles from "./Home.styles";
@@ -19,7 +18,7 @@ import { changeFilterId } from "../../features/filter/filterSlice";
 function Home() {
   const dispatch: AppDispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const { isLoading, isError, isSuccess, message } = useSelector(
+  const { isError, isSuccess, message } = useSelector(
     (state: RootState) => state.products
   );
   const products = useSelector((state: RootState) => state.products);
@@ -41,10 +40,6 @@ function Home() {
     setInputValue(id ? id : "");
     dispatch(changeFilterId(id ? id : ""));
   }, [dispatch, filterSettings, searchParams, setSearchParams]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   if (isError && !isSuccess && message) {
     toast.error(message, {
