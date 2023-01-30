@@ -20,8 +20,8 @@ const SubmitButton = ({ inputValue }: Types.ButtonProps) => {
   };
 
   return (
-    <Button variant="contained" onClick={handleClick} fullWidth>
-      Submit
+    <Button variant="contained" onClick={handleClick}>
+      Search
     </Button>
   );
 };

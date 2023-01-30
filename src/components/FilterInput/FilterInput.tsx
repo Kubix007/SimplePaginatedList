@@ -6,7 +6,7 @@ const FilterInput = ({ inputValue, setInputValue }: Types.InputProps) => {
     <TextField
       label="Search by ID"
       type="number"
-      fullWidth
+      name="id"
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
     />

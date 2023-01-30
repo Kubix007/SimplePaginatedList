@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductsTable from "../../components/ProductsTable/ProductsTable";
-import { Grid } from "@mui/material";
+import { Paper } from "@mui/material";
 import {
   getProducts,
   resetStatus,
@@ -57,21 +57,31 @@ function Home() {
     setSearchParams({ id: "", page: "1" });
   }
 
+  const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <Styles.AppContainer
       container
       direction="column"
       justifyContent="center"
       alignItems="center"
-      spacing={2}
     >
-      <Grid item>
-        <FilterInput setInputValue={setInputValue} inputValue={inputValue} />
-        <SubmitButton inputValue={inputValue} />
-      </Grid>
-      <Grid item>
-        <ProductsTable setOpen={setOpen} data={products.products} />
-      </Grid>
+      <Paper elevation={10}>
+        <Styles.PaperLayout>
+          <Styles.Center>
+            <Styles.FormContainer onSubmit={handleSubmit}>
+              <FilterInput
+                setInputValue={setInputValue}
+                inputValue={inputValue}
+              />
+              <SubmitButton inputValue={inputValue} />
+            </Styles.FormContainer>
+            <ProductsTable setOpen={setOpen} data={products.products} />
+          </Styles.Center>
+        </Styles.PaperLayout>
+      </Paper>
       <ModalInfo open={open} setOpen={setOpen} />
     </Styles.AppContainer>
   );

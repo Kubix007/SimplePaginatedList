@@ -32,14 +32,17 @@ export const MaterialTable = styled(Table)`
     @media screen and (max-width: 700px) {
       width: 550px;
     }
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: 620px) {
       width: 450px;
     }
-    @media screen and (max-width: 470px) {
+    @media screen and (max-width: 520px) {
       width: 350px;
     }
-    @media screen and (max-width: 370px) {
+    @media screen and (max-width: 410px) {
       width: 280px;
+    }
+    @media screen and (max-width: 330px) {
+      width: 220px;
     }
   }
 `;
